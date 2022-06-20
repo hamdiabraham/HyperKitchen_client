@@ -1,14 +1,26 @@
 import store from "./store";
 
-let currentUser;
+// let currentUser;
+
+// const listener = () => {
+//   let previousUser = currentUser;
+
+//   currentUser = store.getState().userLogin;
+
+//   if (currentUser !== previousUser) {
+//     localStorage.setItem("auth", JSON.stringify(currentUser));
+//   }
+// };
+
+let currentCart;
 
 const listener = () => {
-  let previousUser = currentUser;
+  let previousCart = currentCart;
 
-  currentUser = store.getState().userLogin;
+  currentCart = store.getState().cart;
 
-  if (currentUser !== previousUser) {
-    localStorage.setItem("auth", JSON.stringify(currentUser));
+  if (currentCart !== previousCart) {
+    localStorage.setItem("cart", JSON.stringify(currentCart));
   }
 };
 

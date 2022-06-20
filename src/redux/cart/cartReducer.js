@@ -4,10 +4,10 @@ const initialState = localStorage.getItem("cart")
   ? JSON.parse(localStorage.getItem("cart"))
   : [];
 
-export const reducer = (state = initialState, action) => {
+export const cartReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_ITEM:
-      if (state.find((item) => item._Id === action.item._id)) {
+      if (state.find((item) => item._id === action.item._id)) {
         return state.map((item) => ({
           ...item,
           qty: item._id === action.item._id ? item.qty + 1 : item.qty,
@@ -26,6 +26,9 @@ export const reducer = (state = initialState, action) => {
 
     case CLEAR_ITEM:
       return [];
+
+    case SET_ITEM:
+      return action.items;
 
     default:
       return state;

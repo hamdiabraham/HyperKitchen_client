@@ -1,21 +1,28 @@
 import React, { useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { productDetails } from "../redux/products/productAction";
 import Footer from "../components/basicComponents/Footer";
 import Navbar from "../components/basicComponents/Navbar";
 import NumberFormat from "react-number-format";
+import { addItem } from "../redux/cart/cartActions";
 
 const DetailPage = () => {
-  const params = useParams();
+  const productId = useParams().id;
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const productDetail = useSelector((state) => state.productDetail);
   const { product } = productDetail;
 
   useEffect(() => {
-    dispatch(productDetails(params.id));
-  }, [dispatch, params.id]);
+    dispatch(productDetails(productId));
+  }, [dispatch, productId]);
+
+  const addToCartHandler = () => {
+    dispatch(addItem(product));
+    history.push("/cart");
+  };
 
   return (
     <>
@@ -59,12 +66,13 @@ const DetailPage = () => {
                     data-aos="zoom-in"
                     data-aos-delay="100"
                   >
-                    <a
-                      href="/cart"
+                    <button
+                      type="submit"
                       className="btn btn-success px-4 text-white btn-block mb-3"
+                      onClick={addToCartHandler}
                     >
                       Add to Cart
-                    </a>
+                    </button>
                   </div>
                 </div>
               </div>
